@@ -18,7 +18,17 @@ export const setUnauthorizedHandler = (fn: () => void) => { onSessionEnded = fn;
 
 // Endpoints where a 401 is a normal answer (wrong password, bad link, anonymous visitor), not an expired session.
 const NO_REFRESH = ['/auth/login', '/auth/refresh', '/auth/logout', '/auth/set-password', '/auth/forgot-password'];
-const opts = { baseURL: '/api', withCredentials: true, timeout: 20_000 } as const;
+// const opts = { baseURL: '/api', withCredentials: true, timeout: 20_000 } as const;
+// export const api = axios.create(opts);
+const opts = {
+  baseURL: import.meta.env.DEV
+    ? '/api'
+    : import.meta.env.VITE_API_URL,
+
+  withCredentials: true,
+  timeout: 20_000
+} as const;
+
 export const api = axios.create(opts);
 const bare = axios.create(opts); // no interceptors: the refresh call must never trigger a refresh
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
