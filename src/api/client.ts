@@ -23,7 +23,7 @@ const NO_REFRESH = ['/auth/login', '/auth/refresh', '/auth/logout', '/auth/set-p
 const opts = {
   baseURL: import.meta.env.DEV
     ? '/api'
-    : import.meta.env.VITE_API_URL,
+    : import.meta.env.BACKEND_URL,
 
   withCredentials: true,
   timeout: 20_000
